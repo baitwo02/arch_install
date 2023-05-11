@@ -1,0 +1,10 @@
+{
+    "user_name": "baitwo02",
+    "disk": "/dev/nvme0n1",
+    "efi_size":  1,
+    "swap_size": 20,
+    "ucode": "amd-ucode",
+    "root_passwd": "root_passwd",
+    "user_passwd": "user_passwd",
+    "hostname": "arch"
+}
