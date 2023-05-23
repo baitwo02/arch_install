@@ -56,8 +56,13 @@ os.system(f"grub-mkconfig -o /boot/grub/grub.cfg")
 # add a normal user
 username = config_data["user_name"]
 os.system(f"useradd -m -G wheel {username}")
-os.system(f"chsh -s /usr/bin/nu")
-os.system(f"chsh -s /usr/bin/nu {username}")
+os.system(f"chsh -s /usr/bin/fish")
+os.system(f"chsh -s /usr/bin/fish {username}")
+
+# link nvim to vi, vim and nano
+os.system(f"ln -sf /usr/bin/nvim /usr/bin/vi")
+os.system(f"ln -sf /usr/bin/nvim /usr/bin/vim")
+os.system(f"ln -sf /usr/bin/nvim /usr/bin/nano")
 
 # add user  to sudoers
 for line in fileinput.input("/etc/sudoers", inplace=True):

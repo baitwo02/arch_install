@@ -81,6 +81,7 @@ packages = [
     "git",
     "kitty",
     "grub-customizer",
+    "ntfs-3g",
     "feh",
     "network-manager-applet",
     "noto-fonts-emoji",
@@ -89,6 +90,12 @@ packages = [
 
 for package in packages:
     os.system(f"pacman --noconfirm -S {package}")
+
+# 统一 user 和 root 配置
+os.system(f"rm -rf /root/.config")
+os.system(f"rm -rf /root/.locale")
+os.system(f"ln -sf /home/{username}/.config /root/.config")
+os.system(f"ln -sf /home/{username}/.locale /root/.locale")
 
 # 转换用户目录权限
 os.system(f"usermod -aG video,audio {username}")
