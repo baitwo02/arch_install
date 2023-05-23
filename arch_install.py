@@ -2,7 +2,8 @@ import os
 import json
 
 with open("./config.json", "r", encoding="utf8") as config_file:
-    config_data = json.loads(config_file)
+    config_data = json.load(config_file)
+
 
 disk = config_data["disk"]
 efi_size = config_data["efi_size"]
@@ -47,7 +48,7 @@ os.system(f"swapon {swap_partition}")
 
 # install essential packages
 ucode = config_data["ucode"]
-os.system(f"pacstrap -K /mnt base linux linux-firmware neovim fish git btrfs-progs {ucode} ")
+os.system(f"pacstrap -K /mnt base base-devel linux linux-firmware {ucode} btrfs-progs git neovim python")
 
 # fstab
 os.system(f"genfstab -U /mnt >> /mnt/etc/fstab")
