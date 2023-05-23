@@ -4,7 +4,7 @@ import fileinput
 import re
 
 with open("./config.json", "r", encoding="utf8") as config_file:
-    config_data = json.loads(config_file)
+    config_data = json.load(config_file)
 
 username = config_data["user_name"]
 
@@ -22,12 +22,11 @@ os.system("pacman --noconfirm -S archlinuxcn-keyring")
 os.system("pacman --noconfirm -S timeshift grub-btrfs inotify-tools rsync")
 os.system("systemctl enable cronie.service --now")
 os.system("systemctl enable grub-btrfsd.service --now")
-os.system("systemctl edit --full grub-btrfsd")
 path1 = "/usr/lib/systemd/system/grub-btrfsd.service"
 path2 = "/etc/systemd/system/grub-btrfsd.service"
 os.system(f"cp {path1} {path2}")
 
-for line in fileinput.input("etc/systemd/system/grub-btrfsd.service", inplace=True):
+for line in fileinput.input("/etc/systemd/system/grub-btrfsd.service", inplace=True):
     if re.match(r'^ExecStart=/usr/bin/grub-btrfsd --syslog /.snapshots$', line):
         line = re.sub(r'--syslog /.snapshots', '--syslog --timeshift-auto', line)
     print(line, end='')
@@ -61,12 +60,11 @@ with open("/etc/environment", "a", encoding="utf-8") as environment_f:
     environment_f.write(fictx5_config)
 os.system("pacman --noconfirm -S ttf-lxgw-wenkai ttf-lxgw-wenkai-mono nerd-fonts-hack")
 os.system(f"mkdir /home/{username}/.config/autostart")
-os.system(f"cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/")
+os.system(f"cp /usr/share/applications/org.fcitx.Fcitx5.desktop /home/{username}/.config/autostart/")
 
 # 配置代理及aur
 os.system("pacman --noconfirm -S yay paru clash-verge clash-meta")
 os.system("systemctl enable clash-meta.service")
-os.system("systemctl enable clash-verge.service")
 
 # 配置电源管理
 os.system("pacman --noconfirm -S tlp")
@@ -76,11 +74,8 @@ os.system("systemctl enable tlp.service")
 os.system("pacman --noconfirm -S bluez bluez-utils blueberry")
 os.system("systemctl enable bluetooth.service")
 
-# 转换用户目录权限
-os.system(f"usermod -aG video,audio {username}")
-os.system(f"chown -R {username}:{username} /home/{username}")
 
-# 安装常用包
+# 安装必备包
 packages = [
     "firefox",
     "git",
@@ -94,3 +89,7 @@ packages = [
 
 for package in packages:
     os.system(f"pacman --noconfirm -S {package}")
+
+# 转换用户目录权限
+os.system(f"usermod -aG video,audio {username}")
+os.system(f"chown -R {username}:{username} /home/{username}")

@@ -1,5 +1,5 @@
 {
-    "user_name": "baitwo02",
+    "username": "baitwo02",
     "disk": "/dev/nvme0n1",
     "efi_size":  1,
     "swap_size": 20,
