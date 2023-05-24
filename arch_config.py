@@ -6,7 +6,7 @@ import re
 with open("./config.json", "r", encoding="utf8") as config_file:
     config_data = json.load(config_file)
 
-username = config_data["user_name"]
+username = config_data["username"]
 
 # 配置 archlinuxcn 源
 archlinuxcn = """\

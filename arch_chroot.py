@@ -54,7 +54,7 @@ os.system(f"grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-
 os.system(f"grub-mkconfig -o /boot/grub/grub.cfg")
 
 # add a normal user
-username = config_data["user_name"]
+username = config_data["username"]
 os.system(f"useradd -m -G wheel {username}")
 os.system(f"chsh -s /usr/bin/fish")
 os.system(f"chsh -s /usr/bin/fish {username}")
