@@ -53,7 +53,7 @@ os.system(f"swapon {swap_partition}")
 
 # install essential packages
 ucode = config_data["ucode"]
-os.system(f"pacstrap -K /mnt base base-devel linux linux-firmware {ucode} btrfs-progs git neovim python fish")
+os.system(f"pacstrap -K /mnt base base-devel linux linux-firmware {ucode} btrfs-progs git neovim python fish networkmanager dhcpcd")
 
 # fstab
 os.system(f"genfstab -U /mnt >> /mnt/etc/fstab")
