@@ -15,9 +15,14 @@ os.system(f"parted {disk} mkpart primary 0GB {efi_size}GB")
 os.system(f"parted {disk} mkpart primary {efi_size}GB {swap_size}GB")
 os.system(f"parted {disk} mkpart primary {swap_size}GB 100%")
 
-efi_partition = disk + "p1"
-swap_partition = disk + "p2"
-root_partition = disk + "p3"
+if "nvme" in disk:
+    efi_partition = disk + "p1"
+    swap_partition = disk + "p2"
+    root_partition = disk + "p3"
+elif "sd" in disk:
+    efi_partition = disk + "1"
+    swap_partition = disk + "2"
+    root_partition = disk + "3"
 
 # format the partitions
 os.system(f"mkfs.fat -F 32 {efi_partition}")
