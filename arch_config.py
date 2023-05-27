@@ -93,9 +93,9 @@ for package in packages:
 
 # 统一 user 和 root 配置
 os.system(f"rm -rf /root/.config")
-os.system(f"rm -rf /root/.locale")
+os.system(f"rm -rf /root/.local")
 os.system(f"ln -sf /home/{username}/.config /root/.config")
-os.system(f"ln -sf /home/{username}/.locale /root/.locale")
+os.system(f"ln -sf /home/{username}/.local /root/.local")
 
 # 转换用户目录权限
 os.system(f"usermod -aG video,audio {username}")
